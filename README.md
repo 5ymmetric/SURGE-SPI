@@ -17,3 +17,27 @@ SPI Value | Condictions
 -1.0 to -1.49 | Moderately Dry
 -1.5 to -1.99 | Very Dry
 -2.0 and less | Extremely Dry
+
+# Calculating SPI
+1. First, we need to determine the No Data Value of our image
+      1. Since precipitation from CHIRPS is from satellite, the developers had selected a magic number for areas where you wouldn’t care about. For example, we would not care about the precipitation in the Pacific so we would set the values around the Pacific Ocean to -9999. So when we see the number -9999 at any pixel, we can determine that that is a NoData value. 
+      2. We can determine the NoData value by using QGIS or ArcGIS. For this example, we will us QGIS. First, open QGIS and then drive one of the raw images into the application. One the image is opened in the application, select the “Identify Features” button on the toolbar at the top. The keyboard for it on Windows 10 is Ctrl+Shift+I. Click on a pixel in the ocean and it should give you a value. Typically the value should be -9999. Now that we found our NoData value, we can look at the code. 
+2. Clipping the Images
+      1. Currently, everything is hardcoded, but can easily be changed for easier usage. Change the variable ‘odir’ to your desired out directory. Change the variable ‘idir’ to the location of your raw data. Change ‘inMash’ to the path of your Shapefile. 
+      2. If your NoData value is not -9999, locate the ‘cmd’ variable. Within that variable, replace the value -9999 to the data’s actual NoData value.  
+      3. Once all these changes are completed, run the script and it will begin clipping. **Please note, depending on how much your shapefiles are, this can take up a lot of space and use a lot of time.**
+3. Aggregating Precipitation values over 30 years into a single NetCDF file
+      1. Find the latitude and longitude of the required country by using GDAL.
+      2. Currently, everything is hardcoded, but can easily be changed for easier usage. Change the variable ‘odir’ to your desired out directory. Change the variable ‘wdir’ to the location of your clipped images. Change ncfile.createDimension('lat',606) and ncfile.createDimension('lon',585) with the latitude and longitude found from the previous step.
+      3. Once all these changes are completed, run the script and it will begin aggregating the clipped images over time. **Please note, depending on how much your shapefiles are, this can take up a lot of space and use a lot of time.**
+4. Compute SPI
+      1. We use the command line tool provided by the climate_indices library to compute the SPI.
+      2. Run the commandline_runner script by adjusting the periodicity, scales and variable names to compute the requred SPI.
+      
+# Additional Materials
+* QGIS (https://www.qgis.org/en/site/)
+* GDAL (https://gdal.org/)
+* Precipitation Data CHRIPS: (ftp://ftp.chg.ucsb.edu/pub/org/chg/products/CHIRPS-2.0/global_daily/tifs/p05/)
+* Shape Files: (https://data.humdata.org/)
+* Climate Indices (https://github.com/monocongo/climate_indices)
+* ArcGIS (https://www.arcgis.com/index.html)
