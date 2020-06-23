@@ -25,11 +25,11 @@ SPI Value | Condictions
 2. Clipping the Images
       1. Currently, everything is hardcoded, but can easily be changed for easier usage. Change the variable ‘odir’ to your desired out directory. Change the variable ‘idir’ to the location of your raw data. Change ‘inMash’ to the path of your Shapefile. 
       2. If your NoData value is not -9999, locate the ‘cmd’ variable. Within that variable, replace the value -9999 to the data’s actual NoData value.  
-      3. Once all these changes are completed, run the script and it will begin clipping. **Please note, depending on how much your shapefiles are, this can take up a lot of space and use a lot of time.**
+      3. Once all these changes are completed, run the script and it will begin clipping. **Please note, depending on how big your shapefiles are, this can take up a lot of space and use a lot of time.**
 3. Aggregating Precipitation values over 30 years into a single NetCDF file
       1. Find the latitude and longitude of the required country by using GDAL.
       2. Currently, everything is hardcoded, but can easily be changed for easier usage. Change the variable ‘odir’ to your desired out directory. Change the variable ‘wdir’ to the location of your clipped images. Change ncfile.createDimension('lat',606) and ncfile.createDimension('lon',585) with the latitude and longitude found from the previous step.
-      3. Once all these changes are completed, run the script and it will begin aggregating the clipped images over time. **Please note, depending on how much your shapefiles are, this can take up a lot of space and use a lot of time.**
+      3. Once all these changes are completed, run the script and it will begin aggregating the clipped images over time. 
 4. Compute SPI
       1. We use the command line tool provided by the climate_indices library to compute the SPI.
       2. Run the commandline_runner script by adjusting the periodicity, scales and variable names to compute the requred SPI.
